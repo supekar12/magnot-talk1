@@ -107,6 +107,7 @@ async def chat_endpoint(request: ChatRequest):
     
     # Combine user question with context
     combined_prompt = (
+        f"INSTRUCTIONS: {SYSTEM_PROMPT}\n\n"
         f"--- CONTEXT START ---\n"
         f"CSV Data Context:\n{csv_context}\n\n"
         f"Live Web Scrape Context:\n{live_context}\n"
@@ -115,7 +116,7 @@ async def chat_endpoint(request: ChatRequest):
     )
     
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash', system_instruction=SYSTEM_PROMPT)
+        model = genai.GenerativeModel('gemini-pro')
         chat_response = model.generate_content(combined_prompt)
         
         return ChatResponse(response=chat_response.text)
