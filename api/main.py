@@ -116,7 +116,7 @@ async def chat_endpoint(request: ChatRequest):
     )
     
     try:
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         chat_response = model.generate_content(combined_prompt)
         
         return ChatResponse(response=chat_response.text)
