@@ -115,13 +115,13 @@ async def chat_endpoint(request: ChatRequest):
     )
     
     try:
-        model = genai.GenerativeModel('gemini-2.0-flash', system_instruction=SYSTEM_PROMPT)
+        model = genai.GenerativeModel('gemini-1.5-flash', system_instruction=SYSTEM_PROMPT)
         chat_response = model.generate_content(combined_prompt)
         
         return ChatResponse(response=chat_response.text)
     except Exception as e:
         print(f"Gemini API Error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to communicate with AI model.")
+        raise HTTPException(status_code=500, detail=f"Failed to communicate with AI model. API Error: {str(e)}")
 
 @app.get("/")
 def read_root():
